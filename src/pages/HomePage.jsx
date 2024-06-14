@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { api } from "../api";
 import Blog from "../components/blog/Blog";
 import PageTitle from "../components/common/PageTitle";
@@ -72,52 +71,15 @@ const HomePage = () => {
 
         {/* Begin Blogs */}
         <section>
-          <div className="container mx-auto">
-            <div className="lg:flex gap-4">
+          <div className="blog">
+            <div className="container mx-auto">
               {/* Blog Contents */}
-
-              <div className="w-full lg:w-2/3">
-                {blogs?.map((blog) => (
-                  <Blog key={blog.id} blog={blog} />
-                ))}
-              </div>
-
-              {/* Sidebar */}
-              <div className="w-full lg:w-1/3">
-                <div className="sidebar-card">
-                  <h3 className="text-slate-300 text-xl lg:text-2xl font-semibold">
-                    Most Popular 👍️
-                  </h3>
-
-                  <ul className="space-y-5 my-5">
-                    <li>
-                      <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
-                        How to Auto Deploy a Next.js App on Ubuntu from GitHub
-                      </h3>
-                      <p className="text-slate-600 text-sm">
-                        by
-                        <Link to="./profile.html">Saad Hasan</Link>
-                        <span>·</span> 100 Likes
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="sidebar-card mt-5">
-                  <h3 className="text-slate-300 text-xl lg:text-2xl font-semibold">
-                    Your Favourites ❤️
-                  </h3>
-
-                  <ul className="space-y-5 my-5">
-                    <li>
-                      <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
-                        How to Auto Deploy a Next.js App on Ubuntu from GitHub
-                      </h3>
-                      <p className="text-slate-600 text-sm">
-                        #tailwindcss, #server, #ubuntu
-                      </p>
-                    </li>
-                  </ul>
+              <div className="blog-wrapper">
+                <h3 className="text-3xl text-white font-semibold">Blogs</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-6">
+                  {blogs?.map((blog) => (
+                    <Blog key={blog.id} blog={blog} />
+                  ))}
                 </div>
               </div>
             </div>
@@ -127,7 +89,9 @@ const HomePage = () => {
           {hasMore ? (
             <h2 ref={loaderRef}>Loading more Blogs...</h2>
           ) : (
-            <p className="text-indigo-600 text-center text-xl font-medium pt-5">Data fetched successfully</p>
+            <p className="text-indigo-600 text-center text-xl font-medium pt-5">
+              Data fetched successfully
+            </p>
           )}
         </div>
       </main>

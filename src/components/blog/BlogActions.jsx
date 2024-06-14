@@ -8,7 +8,7 @@ const BlogActions = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="absolute right-0 top-2">
+    <div className="absolute right-0 top-2 flex justify-center items-center bg-[#030317] p-2 rounded-full shadow-lg">
       <button onClick={()=> setIsOpen(!isOpen)}>
         <img src={threeDots} alt="3dots of Action" />
       </button>

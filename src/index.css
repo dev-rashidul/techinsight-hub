@@ -12,7 +12,7 @@
 }
 
 body {
-  background: #030317;
+  background: #191a29;
   color: #ffffff;
   scroll-behavior: smooth;
 }
@@ -35,26 +35,6 @@ nav {
 }
 
 /* Blogs */
-.blog-card {
-  @apply flex gap-4 flex-col md:flex-row  bg-[#030317] p-3 border border-slate-800/40 rounded-lg transition-all hover:border-blue-900/50 hover:shadow-lg shadow-slate-200/50 cursor-pointer;
-}
-
-.blog-card > div {
-  @apply flex-1;
-}
-
-.blog-thumb {
-  @apply aspect-video object-cover rounded-md max-h-48;
-}
-
-/* Sidebar */
-.sidebar-card {
-  @apply border border-slate-800/40 p-4 rounded-lg  hover:border-slate-800/90;
-}
-
-.dot {
-  @apply relative before:rounded-full pl-4 before:translate-y-[6px] before:absolute before:left-0 before:content-[''] before:w-1 before:h-1 before:bg-[#6C757D66];
-}
 
 /* Floating Actions */
 .floating-action {

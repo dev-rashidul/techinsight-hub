@@ -41,7 +41,6 @@ const ProfilePage = () => {
     fetchProfile();
   }, [auth?.user?.id, api, dispatch]);
 
-
   if (state?.loading) {
     <h2>Profile data Fetching....</h2>;
   }
@@ -49,16 +48,19 @@ const ProfilePage = () => {
   return (
     <>
       <PageTitle title="Profile" />
-      <main className="mx-auto max-w-[1020px] py-8">
-        <div className="container">
-          {/* profile info */}
-          <ProfileInfo />
-          {/* end profile info */}
+      <main className="container mx-auto">
+        <div className="lg:flex">
+          <div className="w-full lg:w-1/3">
+            {/* profile info */}
+            <ProfileInfo />
+            {/* end profile info */}
+          </div>
 
-          <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">My Blogs</h4>
-
-          {/* My Blogs */}
-          <MyBlogs />
+          <div className="w-full lg:w-2/3 px-3 lg:px-0">
+            <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl pb-5">My Blogs</h4>
+            {/* My Blogs */}
+            <MyBlogs />
+          </div>
         </div>
       </main>
     </>

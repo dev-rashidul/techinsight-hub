@@ -1,5 +1,5 @@
 import { useProfile } from "../../hooks/useProfile";
-import MyBlogsCard from "./MyBlogsCard";
+import Blog from "../blog/Blog";
 
 const MyBlogs = () => {
   // Get Profile info from Profile Context
@@ -11,11 +11,11 @@ const MyBlogs = () => {
   const myBlogs = state?.blogs;
 
   return (
-    <>
+    <div className="grid grid-cols-1 lg:grid-cols-2">
       {myBlogs.map((blog) => (
-        <MyBlogsCard key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} />
       ))}
-    </>
+    </div>
   );
 };
 
