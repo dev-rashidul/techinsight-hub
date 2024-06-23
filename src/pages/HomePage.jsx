@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { api } from "../api";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Blog from "../components/blog/Blog";
 import PageTitle from "../components/common/PageTitle";
 import Hero from "../components/home/Hero";
@@ -8,56 +8,22 @@ const HomePage = () => {
   // State for store Blogs data
   const [blogs, setBlogs] = useState([]);
 
-  // State for Page
-  const [page, setPage] = useState(1);
-
-  // Check the blogs remain or not
-  const [hasMore, setHasMore] = useState(true);
-
-  // Ref for loader
-  const loaderRef = useRef(null);
-
   // Fetch blogs
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await api.get(
-          `${import.meta.env.VITE_SERVER_URL}/blogs?page=${page}`
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/blogs`
         );
         const data = response.data;
-        if (data.blogs.length === 0) {
-          setHasMore(false);
-        } else {
-          setBlogs((prevBlogs) => [...prevBlogs, ...data.blogs]);
-          setPage((prevPage) => prevPage + 1);
-        }
+        console.log(data);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
     };
-
-    const onIntersection = (items) => {
-      const loaderItem = items[0];
-
-      if (loaderItem.isIntersecting && hasMore) {
-        fetchBlogs();
-      }
-    };
-
-    const observer = new IntersectionObserver(onIntersection);
-
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
-    }
-
-    // cleanup
-    return () => {
-      if (observer && loaderRef.current) {
-        observer.unobserve(loaderRef.current);
-      }
-    };
-  }, [page, hasMore]);
+    fetchBlogs();
+  }, []);
 
   return (
     <>
@@ -85,15 +51,6 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-        <div className="container mx-auto">
-          {hasMore ? (
-            <h2 ref={loaderRef}>Loading more Blogs...</h2>
-          ) : (
-            <p className="text-indigo-600 text-center text-xl font-medium pt-5">
-              Data fetched successfully
-            </p>
-          )}
-        </div>
       </main>
     </>
   );

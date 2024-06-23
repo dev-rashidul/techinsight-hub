@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -13,14 +14,31 @@ const RegisterForm = () => {
     formState: { errors },
     setError,
   } = useForm();
+  const [avatar, setAvatar] = useState(null); // State to store selected file
 
-  // Submit Form Function
+  // Handle file selection
+  const handleFileChange = (e) => {
+    setAvatar(e.target.files[0]);
+  };
 
   const submitForm = async (formData) => {
     try {
+      const data = new FormData();
+      data.append("avatar", avatar); // Append the selected file to FormData
+
+      // Append other form data to FormData
+      Object.keys(formData).forEach((key) => {
+        data.append(key, formData[key]);
+      });
+
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/auth/register`,
-        formData
+        `${import.meta.env.VITE_SERVER_URL}/register`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       if (response.status === 201) {
@@ -121,6 +139,20 @@ const RegisterForm = () => {
               {errors?.password?.message}
             </div>
           )}
+        </div>
+        {/* File upload field for avatar */}
+        <div className="mb-6">
+          <label htmlFor="avatar" className="text-white block mb-2">
+            Avatar
+          </label>
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            onChange={handleFileChange}
+            accept=".jpg,.jpeg,.png"
+            className="w-full p-3 bg-[#030317] border rounded-md focus:outline-none"
+          />
         </div>
         <p className="text-red-600 pb-3">{errors?.root?.random?.message}</p>
         <div className="mb-6">

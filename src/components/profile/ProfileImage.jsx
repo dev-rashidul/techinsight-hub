@@ -1,7 +1,7 @@
+import axios from "axios";
 import { useRef } from "react";
 import { actions } from "../../actions";
 import editIcon from "../../assets/icons/edit.svg";
-import { useAxios } from "../../hooks/useAxios";
 import { useProfile } from "../../hooks/useProfile";
 
 const ProfileImage = () => {
@@ -11,8 +11,6 @@ const ProfileImage = () => {
   // Destructuring state object
   const user = state?.user;
 
-  // Axios instance
-  const { api } = useAxios();
 
   // Ref to get file
   const fileUploadRef = useRef();
@@ -31,7 +29,7 @@ const ProfileImage = () => {
     }
 
     try {
-      const response = await api.post(
+      const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/profile/avatar`,
         formData
       );
@@ -53,7 +51,7 @@ const ProfileImage = () => {
         <>
           <img
             className="w-full h-full rounded-full"
-            src={`${import.meta.env.VITE_SERVER_URL}/uploads/avatar/${
+            src={`${import.meta.env.VITE_SERVER_URL}/${
               user?.avatar
             }`}
             alt="avatar"

@@ -40,7 +40,7 @@ const Header = () => {
                   Create Blog
                 </Link>
               </li>
-              {!auth?.accessToken && (
+              {!auth?.user && (
                 <li>
                   <Link
                     to="/login"
@@ -50,12 +50,12 @@ const Header = () => {
                   </Link>
                 </li>
               )}
-              {auth?.accessToken && (
+              {auth?.user && (
                 <li className="flex items-center">
                   {user?.avatar ? (
                     <img
                       className="w-10 h-10 rounded-full border-2 border-indigo-600"
-                      src={`${import.meta.env.VITE_SERVER_URL}/uploads/avatar/${
+                      src={`${import.meta.env.VITE_SERVER_URL}/${
                         user?.avatar
                       }`}
                       alt="avatar"

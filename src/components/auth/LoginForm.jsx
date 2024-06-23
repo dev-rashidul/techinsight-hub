@@ -23,17 +23,14 @@ const LoginForm = () => {
   const submitForm = async (formData) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/auth/login`,
+        `${import.meta.env.VITE_SERVER_URL}/login`,
         formData
       );
 
       if (response.status === 200) {
-        const { token, user } = response.data;
-
-        if (token) {
-          const accessToken = token.accessToken;
-          const refreshToken = token.refreshToken;
-          setAuth({ user, accessToken, refreshToken });
+        const { user } = response.data;
+        if (user) {
+          setAuth({user});
           navigate("/");
         }
       }

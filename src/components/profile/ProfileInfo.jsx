@@ -1,17 +1,14 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { actions } from "../../actions";
 import checkIcon from "../../assets/icons/check.svg";
 import editIcon from "../../assets/icons/edit.svg";
-import { useAxios } from "../../hooks/useAxios";
 import { useProfile } from "../../hooks/useProfile";
 import ProfileImage from "./ProfileImage";
 
 const ProfileInfo = () => {
   // Get user Profile info from Context
   const { state, dispatch } = useProfile();
-
-  // get api for authenticated api call
-  const { api } = useAxios();
 
   // Get User from State Object
   const user = state?.user;
@@ -33,7 +30,7 @@ const ProfileInfo = () => {
     });
 
     try {
-      const response = await api.patch(
+      const response = await axios.patch(
         `${import.meta.env.VITE_SERVER_URL}/profile`,
         { bio }
       );

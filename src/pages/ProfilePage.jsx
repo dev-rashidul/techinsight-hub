@@ -1,10 +1,10 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { actions } from "../actions";
 import PageTitle from "../components/common/PageTitle";
 import MyBlogs from "../components/profile/MyBlogs";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import useAuth from "../hooks/useAuth";
-import { useAxios } from "../hooks/useAxios";
 import { useProfile } from "../hooks/useProfile";
 
 const ProfilePage = () => {
@@ -12,8 +12,9 @@ const ProfilePage = () => {
 
   const { state, dispatch } = useProfile();
 
-  const { api } = useAxios();
   const { auth } = useAuth();
+
+  console.log(auth)
 
   useEffect(() => {
     dispatch({
@@ -22,14 +23,15 @@ const ProfilePage = () => {
 
     const fetchProfile = async () => {
       try {
-        const response = await api.get(
-          `${import.meta.env.VITE_SERVER_URL}/profile/${auth?.user?.id}`
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/profile/${auth?.user?._id}`
         );
         if (response.status === 200) {
           dispatch({
             type: actions.profile.DATA_FETCHED,
             data: response.data,
           });
+          console.log(response.data)
         }
       } catch (error) {
         dispatch({
@@ -39,7 +41,7 @@ const ProfilePage = () => {
       }
     };
     fetchProfile();
-  }, [auth?.user?.id, api, dispatch]);
+  }, [auth?.user?._id, dispatch]);
 
   if (state?.loading) {
     <h2>Profile data Fetching....</h2>;

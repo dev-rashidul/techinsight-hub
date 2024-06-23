@@ -7,7 +7,7 @@ const PrivateRoute = () => {
 
   return (
     <>
-      {auth?.accessToken ? (
+      {auth?.user ? (
         <>
           <Outlet />
         </>
