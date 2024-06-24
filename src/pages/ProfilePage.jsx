@@ -14,8 +14,6 @@ const ProfilePage = () => {
 
   const { auth } = useAuth();
 
-  console.log(auth)
-
   useEffect(() => {
     dispatch({
       type: actions.profile.DATA_FETCHING,
