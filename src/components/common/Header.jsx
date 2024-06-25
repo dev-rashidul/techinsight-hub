@@ -7,8 +7,6 @@ const Header = () => {
   // Get User info from Context
   const { auth } = useAuth();
 
-  console.log(auth.user)
-
   // Get Profile info from Context
   const { state } = useProfile();
 
@@ -57,9 +55,7 @@ const Header = () => {
                   {user?.avatar ? (
                     <img
                       className="w-10 h-10 rounded-full border-2 border-indigo-600"
-                      src={`${import.meta.env.VITE_SERVER_URL}${
-                        user?.avatar
-                      }`}
+                      src={`${user?.avatar}`}
                       alt="avatar"
                     />
                   ) : (

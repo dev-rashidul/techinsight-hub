@@ -29,8 +29,9 @@ const LoginForm = () => {
 
       if (response.status === 200) {
         const { user } = response.data;
+
         if (user) {
-          setAuth({user});
+          setAuth({ user });
           navigate("/");
         }
       }

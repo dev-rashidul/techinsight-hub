@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -14,26 +13,20 @@ const RegisterForm = () => {
     formState: { errors },
     setError,
   } = useForm();
-  const [avatar, setAvatar] = useState(null); // State to store selected file
 
-  // Handle file selection
-  const handleFileChange = (e) => {
-    setAvatar(e.target.files[0]);
-  };
-
-  const submitForm = async (formData) => {
+  const submitForm = async (data) => {
     try {
-      const data = new FormData();
-      data.append("avatar", avatar); // Append the selected file to FormData
-
-      // Append other form data to FormData
-      Object.keys(formData).forEach((key) => {
-        data.append(key, formData[key]);
-      });
-
+      const formData = new FormData();
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+      formData.append("bio", data.bio);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("avatar", data.avatar[0]); 
+      
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/register`,
-        data,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -41,9 +34,9 @@ const RegisterForm = () => {
         }
       );
 
-      if (response.status === 201) {
-        navigate("/login");
-      }
+      console.log("Registration successful:", response.data);
+
+      navigate("/login");
     } catch (error) {
       console.error(error);
       setError("root.random", {
@@ -146,13 +139,14 @@ const RegisterForm = () => {
             Avatar
           </label>
           <input
+            className="w-full p-3 bg-[#030317] border rounded-md focus:outline-none"
             type="file"
             id="avatar"
             name="avatar"
-            onChange={handleFileChange}
-            accept=".jpg,.jpeg,.png"
-            className="w-full p-3 bg-[#030317] border rounded-md focus:outline-none"
+            accept="*"
+            {...register("avatar", { required: true })}
           />
+          {errors.avatar && <p>Avatar is required.</p>}
         </div>
         <p className="text-red-600 pb-3">{errors?.root?.random?.message}</p>
         <div className="mb-6">
