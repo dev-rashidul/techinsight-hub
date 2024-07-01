@@ -1,14 +1,12 @@
-/* eslint-disable react/prop-types */
-import { useReducer } from "react";
+import { useState } from "react";
 import { ProfileContext } from "../context";
-import { initialState, profileReducer } from "../reducers/ProfileReducer";
 
 const ProfileProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(profileReducer, initialState);
+  const [user, setUser] = useState({});
 
   return (
     <>
-      <ProfileContext.Provider value={{ state, dispatch }}>
+      <ProfileContext.Provider value={{ user, setUser }}>
         {children}
       </ProfileContext.Provider>
     </>

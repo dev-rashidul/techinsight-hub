@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import useAuth from "../../hooks/useAuth";
 
 const LoginForm = () => {
   // Navigate From React Router
   const navigate = useNavigate();
+
+  // Get route location using useLocation
+  const location = useLocation();
 
   // Get Auth from Context
   const { setAuth } = useAuth();
@@ -29,14 +33,14 @@ const LoginForm = () => {
 
       if (response.status === 200) {
         const { user } = response.data;
-
         if (user) {
           setAuth({ user });
-          navigate("/");
+          navigate(location?.state ? location?.state : "/");
+          swal("Logged In!", "You are successfully logged in", "success");
         }
       }
     } catch (error) {
-      console.error(error);
+      swal("Something went wrong", `${error}`, "error");
       setError("root.random", {
         type: "random",
         message: `Login error ${error.message}`,

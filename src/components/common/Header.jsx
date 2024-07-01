@@ -1,16 +1,13 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
-import { useProfile } from "../../hooks/useProfile";
 
 const Header = () => {
   // Get User info from Context
   const { auth } = useAuth();
 
-  // Get Profile info from Context
-  const { state } = useProfile();
-
-  const user = state?.user ?? auth?.user;
+  // Get User from auth
+  const user = auth?.user;
 
   return (
     <>
@@ -25,11 +22,6 @@ const Header = () => {
               </span>
             </Link>
           </div>
-
-          {/* Actions - Login, Write, Home, Search */}
-          {/* Notes for Developers */}
-          {/* For Logged in User - Write, Profile, Logout Menu */}
-          {/* For Not Logged in User - Login Menu */}
           <div>
             <ul className="flex items-center space-x-5">
               <li>
@@ -52,20 +44,9 @@ const Header = () => {
               )}
               {auth?.user && (
                 <li className="flex items-center">
-                  {user?.avatar ? (
-                    <img
-                      className="w-10 h-10 rounded-full border-2 border-indigo-600"
-                      src={`${user?.avatar}`}
-                      alt="avatar"
-                    />
-                  ) : (
-                    <div className="avater-img bg-orange-600 text-white">
-                      {/* User's first name initial */}
-                      <span className="">{user?.firstName?.slice(0, 1)}</span>
-                    </div>
-                  )}
-
-                  {/* Logged-in user's name */}
+                  <div className="user-letter flex justify-center items-center w-10 h-10 bg-orange-600 text-white rounded-full">
+                    <span className="">{user?.firstName?.slice(0, 1)}</span>
+                  </div>
                   <Link to="/profile">
                     <span className="text-white ml-2">
                       {user?.firstName} {user?.lastName}

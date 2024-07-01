@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 const RegisterForm = () => {
   // Navigate From React Router
@@ -14,31 +15,19 @@ const RegisterForm = () => {
     setError,
   } = useForm();
 
-  const submitForm = async (data) => {
+  const submitForm = async (formData) => {
     try {
-      const formData = new FormData();
-      formData.append("firstName", data.firstName);
-      formData.append("lastName", data.lastName);
-      formData.append("bio", data.bio);
-      formData.append("email", data.email);
-      formData.append("password", data.password);
-      formData.append("avatar", data.avatar[0]); 
-      
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/register`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        formData
       );
 
       console.log("Registration successful:", response.data);
+      swal("Registered!", "You are successfully Registered", "success");
 
       navigate("/login");
     } catch (error) {
-      console.error(error);
+      swal("Something went wrong!", `${error}`, "error");
       setError("root.random", {
         type: "random",
         message: `Something went wrong ${error.message}`,
@@ -113,6 +102,27 @@ const RegisterForm = () => {
           )}
         </div>
         <div className="mb-6">
+          <label htmlFor="bio" className="text-white block mb-2">
+            Bio
+          </label>
+          <input
+            type="text"
+            id="bio"
+            name="bio"
+            {...register("bio", { required: "Bio is required" })}
+            className={`w-full p-3 bg-[#030317] border rounded-md focus:outline-none ${
+              errors.bio
+                ? "border-red-500 focus:border-red-500"
+                : "border-white/20 focus:border-indigo-500"
+            }`}
+          />
+          {errors.bio && (
+            <div role="alert" className="text-red-600 pt-2">
+              {errors?.bio?.message}
+            </div>
+          )}
+        </div>
+        <div className="mb-6">
           <label htmlFor="password" className="text-white block mb-2">
             Password
           </label>
@@ -132,21 +142,6 @@ const RegisterForm = () => {
               {errors?.password?.message}
             </div>
           )}
-        </div>
-        {/* File upload field for avatar */}
-        <div className="mb-6">
-          <label htmlFor="avatar" className="text-white block mb-2">
-            Avatar
-          </label>
-          <input
-            className="w-full p-3 bg-[#030317] border rounded-md focus:outline-none"
-            type="file"
-            id="avatar"
-            name="avatar"
-            accept="*"
-            {...register("avatar", { required: true })}
-          />
-          {errors.avatar && <p>Avatar is required.</p>}
         </div>
         <p className="text-red-600 pb-3">{errors?.root?.random?.message}</p>
         <div className="mb-6">

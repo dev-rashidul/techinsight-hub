@@ -1,9 +1,12 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const PrivateRoute = () => {
   // Get User Info from Context
   const { auth } = useAuth();
+
+  // Get route location using useLocation
+  const location = useLocation();
 
   return (
     <>
@@ -12,7 +15,7 @@ const PrivateRoute = () => {
           <Outlet />
         </>
       ) : (
-        <Navigate to="/login" />
+        <Navigate to="/login" state={location.pathname}/>
       )}
     </>
   );

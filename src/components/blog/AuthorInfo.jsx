@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { getDateDifferenceFromNow } from "../../util";
+import { getDateDifferenceFromNow } from "../../util/index.js";
 
 const AuthorInfo = ({ author, likes, createdAt }) => {
   // Destructuring author object
@@ -10,17 +10,7 @@ const AuthorInfo = ({ author, likes, createdAt }) => {
       <div className="flex justify-between items-center">
         <div className="flex items-center capitalize space-x-2">
           <div className="avater-img bg-indigo-600 text-white">
-            {avatar ? (
-              <img
-                className="rounded-full"
-                src={`${
-                  import.meta.env.VITE_SERVER_URL
-                }/uploads/avatar/${avatar}`}
-                alt="avatar"
-              />
-            ) : (
-              <span>{firstName.slice(0, 1)}</span>
-            )}
+            <span>{firstName.slice(0, 1)}</span>
           </div>
 
           <div>
