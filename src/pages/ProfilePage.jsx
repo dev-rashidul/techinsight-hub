@@ -13,30 +13,34 @@ const ProfilePage = () => {
     fetchProfile();
   }, []);
 
-  if(loading) return <Loading/>
-
   return (
     <>
       <PageTitle title="Profile" />
-      <main className="container mx-auto">
-        <div className="lg:flex">
-          <div className="w-full lg:w-1/3">
-            {/* profile info */}
-            <ProfileInfo user={user} />
-            {/* end profile info */}
-          </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <main className="container mx-auto">
+          <div className="lg:flex">
+            <div className="w-full lg:w-1/3">
+              {/* profile info */}
+              <ProfileInfo user={user} />
+              {/* end profile info */}
+            </div>
 
-          <div className="w-full lg:w-2/3 px-3 lg:px-0">
-            <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl pb-5">My Blogs</h4>
-            {/* My Blogs */}
-            {user?.blogs?.length === 0 ? (
-              <p>No Blogs found</p>
-            ) : (
-              <MyBlogs blogs={user?.blogs} />
-            )}
+            <div className="w-full lg:w-2/3 px-3 lg:px-0">
+              <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl pb-5">
+                My Blogs
+              </h4>
+              {/* My Blogs */}
+              {user?.blogs?.length === 0 ? (
+                <p>No Blogs found</p>
+              ) : (
+                <MyBlogs blogs={user?.blogs} />
+              )}
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      )}
     </>
   );
 };
