@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import swal from "sweetalert";
 import { useBlog } from "../../hooks/useBlog";
+import { useFetchProfile } from "../../hooks/useFetchProfile";
 
 
 const BlogEdit = ({ existingBlog, onclose }) => {
@@ -16,6 +17,8 @@ const BlogEdit = ({ existingBlog, onclose }) => {
     thumbnail: existingBlog?.thumbnail || "",
   });
 
+  const {fetchProfile} = useFetchProfile()
+
   const submitForm = async (e) => {
     e.preventDefault();
     try {
@@ -27,6 +30,7 @@ const BlogEdit = ({ existingBlog, onclose }) => {
         blog._id === existingBlog._id ? { ...blog, ...response.data } : blog
       );
       setBlogs(updatedBlogs);
+      fetchProfile()
       onclose();
       swal("Edited!", "Successfully Edited a blog", "success");
     } catch (error) {

@@ -1,30 +1,19 @@
-import axios from "axios";
 import { useEffect } from "react";
 import Blog from "../components/blog/Blog";
+import Loading from "../components/common/Loading";
 import PageTitle from "../components/common/PageTitle";
 import Hero from "../components/home/Hero";
-import { useBlog } from "../hooks/useBlog";
+import { useFetchBlogs } from "../hooks/useFetchBlogs";
 
 const HomePage = () => {
-  // Get state and Dispatch from Blog Context
-  const { blogs, setBlogs } = useBlog();
+  // Blogs array from hooks
+  const { blogs, fetchBlogs, loading } = useFetchBlogs();
 
-  // Fetch blogs
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/blogs`
-        );
-        if (response.status === 200) {
-          setBlogs([...response.data]);
-        }
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      }
-    };
     fetchBlogs();
   }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <>

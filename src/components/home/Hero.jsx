@@ -2,6 +2,17 @@ import axios from "axios";
 import { useState } from "react";
 import { useBlog } from "../../hooks/useBlog";
 
+//  Definition debounce function
+const debounce = (func, delay) => {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
+
 const Hero = () => {
   // State to hold search query
   const [query, setQuery] = useState("");
@@ -9,17 +20,21 @@ const Hero = () => {
   // Get blogs from BlogContext
   const { setBlogs } = useBlog();
 
-  // handleSearch Function
-  const handleSearchChange = async (e) => {
-    setQuery(e.target.value);
+  const debouncedSearch = debounce(async (searchQuery) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/search?query=${query}`
+        `${import.meta.env.VITE_SERVER_URL}/search?query=${searchQuery}`
       );
       setBlogs(response.data);
     } catch (error) {
       console.error("Error searching blogs:", error);
     }
+  }, 1000);
+
+  const handleSearchChange = (e) => {
+    const inputValue = e.target.value;
+    setQuery(inputValue);
+    debouncedSearch(inputValue);
   };
 
   return (

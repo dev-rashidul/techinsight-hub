@@ -2,15 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { HiHandThumbUp, HiOutlineHandThumbUp } from "react-icons/hi2";
 
-const ToggleLike = ({id, user, likes }) => {
+const ToggleLike = ({ id, user, likes }) => {
   // State for Like
   const [like, setLike] = useState(likes?.includes(user?._id));
 
   useEffect(() => {
     setLike(likes?.includes(user?._id));
   }, [likes, user?._id]);
-
-  console.log(user, likes)
 
   // handle toggle Like Function
   const handleLike = async () => {

@@ -1,9 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useSinglBlogFetch } from "../../hooks/useSingleBlogFetch";
 
 const CommentForm = ({ userId, blogId }) => {
   // State to hold comment text
   const [comment, setComment] = useState("");
+
+  // Get blog and fetchBlog from hook
+  const { fetchBlog } = useSinglBlogFetch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,6 +19,7 @@ const CommentForm = ({ userId, blogId }) => {
       );
       console.log("Comment Added :", response.data);
       setComment("");
+      fetchBlog();
     } catch (err) {
       console.log(err);
     }

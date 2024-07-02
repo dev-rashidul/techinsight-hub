@@ -1,35 +1,15 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import BlogDetailsBlog from "../components/blog/BlogDetailsBlog";
+import { useSinglBlogFetch } from "../hooks/useSingleBlogFetch";
 
 const BlogDetails = () => {
-  // State for single blog
-  const [blog, setBlog] = useState({});
-
-  // Get corresponding blog id using useParams()
-  const blogId = useParams();
-
+  // Get blog and fetchBlog from hook
+  const { blog, fetchBlog } = useSinglBlogFetch();
 
   // Fetch Single Blog Data
   useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/blogs/${blogId.id}`
-        );
-
-        if (response.status === 200) {
-          setBlog({ ...response.data });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    // Call function
     fetchBlog();
-  }, [blogId]);
+  }, []);
 
   return (
     <>

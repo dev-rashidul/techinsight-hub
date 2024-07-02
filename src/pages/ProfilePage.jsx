@@ -1,33 +1,19 @@
-import axios from "axios";
 import { useEffect } from "react";
+import Loading from "../components/common/Loading";
 import PageTitle from "../components/common/PageTitle";
 import MyBlogs from "../components/profile/MyBlogs";
 import ProfileInfo from "../components/profile/ProfileInfo";
-import useAuth from "../hooks/useAuth";
-import { useProfile } from "../hooks/useProfile";
+import { useFetchProfile } from "../hooks/useFetchProfile";
 
 const ProfilePage = () => {
-  // Get Profile info from Context
-  const { user, setUser } = useProfile();
-
-  // Get User info From Context
-  const { auth } = useAuth();
+  // Get user from hook
+  const { user, fetchProfile, loading } = useFetchProfile();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/profile/${auth?.user?._id}`
-        );
-        if (response.status === 200) {
-          setUser({ ...response.data });
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    };
     fetchProfile();
-  }, [auth?.user?._id, setUser]);
+  }, []);
+
+  if(loading) return <Loading/>
 
   return (
     <>
