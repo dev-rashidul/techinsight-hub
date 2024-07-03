@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useBlog } from "../../hooks/useBlog";
+import { useFetchBlogs } from "../../hooks/useFetchBlogs";
 import { useFetchProfile } from "../../hooks/useFetchProfile";
 
 const BlogEdit = ({ existingBlog, onclose }) => {
@@ -16,7 +17,8 @@ const BlogEdit = ({ existingBlog, onclose }) => {
     thumbnail: existingBlog?.thumbnail || "",
   });
 
-  const { fetchProfile } = useFetchProfile();
+const {fetchBlogs} = useFetchBlogs()
+const {fetchProfile} = useFetchProfile()
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -29,7 +31,8 @@ const BlogEdit = ({ existingBlog, onclose }) => {
         blog._id === existingBlog._id ? { ...blog, ...response.data } : blog
       );
       setBlogs(updatedBlogs);
-      fetchProfile();
+      fetchBlogs()
+      fetchProfile()
       onclose();
       toast.success("Successfully Edited a blog");
     } catch (error) {

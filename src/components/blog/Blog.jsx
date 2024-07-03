@@ -15,7 +15,6 @@ const Blog = ({ blog }) => {
     thumbnail,
     tags: stringTags,
     author,
-    likes,
     createdAt,
   } = blog;
 
@@ -57,7 +56,7 @@ const Blog = ({ blog }) => {
           </p>
 
           {/* Author Informations */}
-          <AuthorInfo author={author} likes={likes} createdAt={createdAt} />
+          <AuthorInfo author={author} createdAt={createdAt} />
 
           {/* Blog Actions */}
           {blog_author && <BlogActions blog={blog} />}

@@ -34,6 +34,8 @@ const BlogActions = ({ blog }) => {
     }
   };
 
+  // Edit Handler
+
   const handleEdit = (blog) => {
     setIsOpenModal(true);
     setIsOpen(false);

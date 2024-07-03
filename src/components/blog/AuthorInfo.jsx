@@ -22,12 +22,6 @@ const AuthorInfo = ({ author, likes, createdAt }) => {
             </div>
           </div>
         </div>
-
-        <div className="text-sm px-2 py-1 text-gray-400">
-          <span>
-            {likes?.length} Like{likes?.length > 1 && "s"}
-          </span>
-        </div>
       </div>
     </>
   );

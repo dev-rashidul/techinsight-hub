@@ -1,10 +1,13 @@
 import axios from "axios";
+import { useState } from "react";
 import useAuth from "./useAuth";
-import { useProfile } from "./useProfile";
 
 export const useFetchProfile = () => {
-  // Get Profile info from Context
-  const { user, setUser, loading, setLoading } = useProfile();
+  // User State
+  const [user, setUser] = useState({});
+
+  // Loading State
+  const [loading, setLoading] = useState(false)
 
   // Get User info From Context
   const { auth } = useAuth();
@@ -24,5 +27,5 @@ export const useFetchProfile = () => {
     }
   };
 
-  return {user, fetchProfile};
+  return {user, fetchProfile, loading};
 };

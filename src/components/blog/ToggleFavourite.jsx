@@ -29,7 +29,7 @@ const ToggleFavourite = ({ id, user, favouritedBy }) => {
   return (
     <button onClick={handleFavourite} className="flex items-center">
       {isFavourite ? (
-        <HiHeart />
+        <HiHeart className="text-red-600 text-2xl mr-2" />
       ) : (
         <>
           <HiOutlineHeart className="text-2xl mr-2" />

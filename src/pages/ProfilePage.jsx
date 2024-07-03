@@ -13,6 +13,7 @@ const ProfilePage = () => {
     fetchProfile();
   }, []);
 
+
   return (
     <>
       <PageTitle title="Profile" />

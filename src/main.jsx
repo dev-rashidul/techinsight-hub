@@ -7,19 +7,16 @@ import App from "./App.jsx";
 import "./index.css";
 import AuthProvider from "./providers/AuthProvider.jsx";
 import BlogProvider from "./providers/BlogProvider.jsx";
-import ProfileProvider from "./providers/ProfileProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <Router>
-        <ProfileProvider>
-          <BlogProvider>
-            <HelmetProvider>
-              <App />
-            </HelmetProvider>
-          </BlogProvider>
-        </ProfileProvider>
+        <BlogProvider>
+          <HelmetProvider>
+            <App />
+          </HelmetProvider>
+        </BlogProvider>
       </Router>
     </AuthProvider>
     <Toaster />

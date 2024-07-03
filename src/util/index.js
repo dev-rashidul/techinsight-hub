@@ -38,20 +38,15 @@ export const getDateDifferenceFromNow = (fromDate) => {
     message += `${hourDifference} hour${hourDifference > 1 ? 's' : ''} `;
   }
 
-  if (hourDifference < 1) {
-    message = "Less than 1 hour";
-  } else if (minuteDifference > 0) {
+  if (hourDifference < 1 && minuteDifference > 0) {
     message += `${minuteDifference} minute${minuteDifference > 1 ? 's' : ''} `;
   }
 
-  // If less than a minute
-  if (hourDifference < 1 && minuteDifference < 1) {
-    message = "Less than 1 hour";
-  }
-
-  // Add "ago" to all time differences except "Less than 1 hour"
-  if (message !== "Less than 1 hour") {
-    message += "ago";
+  if (message === "") {
+    message = "Just now";
+  } else {
+    // Remove the last space before "ago"
+    message = message.trim() + " ago";
   }
 
   return message.trim();
