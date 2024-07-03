@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import swal from "sweetalert";
+import toast from "react-hot-toast";
 import threeDots from "../../assets/icons/3dots.svg";
 import deleteIcon from "../../assets/icons/delete.svg";
 import editIcon from "../../assets/icons/edit.svg";
@@ -28,7 +28,7 @@ const BlogActions = ({ blog }) => {
       const newBlogs = blogs.filter((item) => item._id !== id);
       setIsOpenModal(false);
       setBlogs(newBlogs);
-      swal("Deleted!", "Blog deleted successfully", "success");
+      toast.success("Blog deleted successfully");
     } catch (err) {
       console.error("Error deleting blog:", err);
     }

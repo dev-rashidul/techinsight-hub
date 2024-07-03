@@ -29,7 +29,7 @@ const Hero = () => {
     } catch (error) {
       console.error("Error searching blogs:", error);
     }
-  }, 1000);
+  }, 500);
 
   const handleSearchChange = (e) => {
     const inputValue = e.target.value;

@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
-import swal from "sweetalert";
+import toast from "react-hot-toast";
 import { useBlog } from "../../hooks/useBlog";
 import { useFetchProfile } from "../../hooks/useFetchProfile";
-
 
 const BlogEdit = ({ existingBlog, onclose }) => {
   //   Get Blogs from Context
@@ -17,7 +16,7 @@ const BlogEdit = ({ existingBlog, onclose }) => {
     thumbnail: existingBlog?.thumbnail || "",
   });
 
-  const {fetchProfile} = useFetchProfile()
+  const { fetchProfile } = useFetchProfile();
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -30,11 +29,11 @@ const BlogEdit = ({ existingBlog, onclose }) => {
         blog._id === existingBlog._id ? { ...blog, ...response.data } : blog
       );
       setBlogs(updatedBlogs);
-      fetchProfile()
+      fetchProfile();
       onclose();
-      swal("Edited!", "Successfully Edited a blog", "success");
+      toast.success("Successfully Edited a blog");
     } catch (error) {
-      swal("Something went wrong!", `${error}`, "error");
+      toast.error(`Something went wrong!, ${error}`);
     }
   };
 

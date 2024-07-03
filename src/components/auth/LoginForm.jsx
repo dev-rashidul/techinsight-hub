@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import swal from "sweetalert";
 import useAuth from "../../hooks/useAuth";
 
 const LoginForm = () => {
@@ -36,11 +36,11 @@ const LoginForm = () => {
         if (user) {
           setAuth({ user });
           navigate(location?.state ? location?.state : "/");
-          swal("Logged In!", "You are successfully logged in", "success");
+          toast.success("You are successfully logged in");
         }
       }
     } catch (error) {
-      swal("Something went wrong", `${error}`, "error");
+      toast.error(`Something went wrong, ${error}`);
       setError("root.random", {
         type: "random",
         message: `Login error ${error.message}`,

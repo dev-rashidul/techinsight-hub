@@ -24,5 +24,5 @@ export const useSinglBlogFetch = () => {
     }
   };
 
-  return { blog, fetchBlog };
+  return { blog, fetchBlog, setBlog };
 };

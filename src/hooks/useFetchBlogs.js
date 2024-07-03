@@ -16,6 +16,7 @@ export const useFetchBlogs = () => {
       }
       setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error fetching blogs:", error);
     }
   };

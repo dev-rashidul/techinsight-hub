@@ -7,19 +7,24 @@ const CommentForm = ({ userId, blogId }) => {
   const [comment, setComment] = useState("");
 
   // Get blog and fetchBlog from hook
-  const { fetchBlog } = useSinglBlogFetch();
+  const { fetchBlog, setBlog } = useSinglBlogFetch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/blogs/${blogId}/comment`,
         { userId, comment }
       );
-      console.log("Comment Added :", response.data);
       setComment("");
-      fetchBlog();
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URL}/blogs/${blogId}`
+      );
+      if (response.status === 200) {
+        setBlog({...response.data});
+        console.log(response.data)
+      }
     } catch (err) {
       console.log(err);
     }

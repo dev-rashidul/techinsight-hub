@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import swal from "sweetalert";
 import PageTitle from "../components/common/PageTitle";
 import useAuth from "../hooks/useAuth";
 
@@ -29,10 +29,10 @@ const CreateBlog = () => {
 
     try {
       await axios.post(`${import.meta.env.VITE_SERVER_URL}/blog`, formData);
-      swal("Added!", "Successfully added a blog", "success");
+      toast.success("Successfully added a blog");
       navigate("/");
     } catch (error) {
-      swal("Something went wrong!", `${error}`, "error");
+      toast.error(`Something went wrong!, ${error}`);
       setError("root.random", {
         type: "random",
         message: `Something went wrong ${error.message}`,

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import swal from "sweetalert";
 
 const RegisterForm = () => {
   // Navigate From React Router
@@ -17,17 +17,11 @@ const RegisterForm = () => {
 
   const submitForm = async (formData) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/register`,
-        formData
-      );
-
-      console.log("Registration successful:", response.data);
-      swal("Registered!", "You are successfully Registered", "success");
-
+      await axios.post(`${import.meta.env.VITE_SERVER_URL}/register`, formData);
+      toast.success(`You are successfully Registered`);
       navigate("/login");
     } catch (error) {
-      swal("Something went wrong!", `${error}`, "error");
+      toast.error(`Something went wrong!, ${error}`);
       setError("root.random", {
         type: "random",
         message: `Something went wrong ${error.message}`,
